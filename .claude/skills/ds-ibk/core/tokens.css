@@ -1,0 +1,23 @@
+/* Valores de color y fuentes de Interbank.
+   Fuente: Manual de identidad v1 (ibk_ds.pdf), pp. 45-53. Se edita a mano. */
+
+:root {
+  /* Paleta principal */
+  --ibk-green: #05be50;      /* Pantone 360 U (el manual también cita 361 C) */
+  --ibk-blue: #0039a6;       /* Pantone 286 C */
+
+  /* Paleta secundaria */
+  --ibk-cream: #f0f0dc;      /* Pantone 168 C */
+  --ibk-yellow: #ffcd00;     /* Pantone 116 C. El manual imprime "cd00": el valor sale de RGB 255 205 0 */
+  --ibk-sky: #64b4e6;        /* Pantone 292 C */
+  --ibk-pink-red: #eb0046;   /* Pantone 192 C */
+  --ibk-navy: #001e5f;       /* Pantone 2757 C */
+  --ibk-black: #0f191e;      /* Pantone Black 6 C */
+
+  /* Blanco: fondo por defecto y caja de logotipo */
+  --ibk-white: #ffffff;
+
+  /* Fuentes */
+  --font-brand: 'Geometria', 'Montserrat', sans-serif;  /* Montserrat = sustituta digital */
+  --font-system: Verdana, sans-serif;                   /* solo emails HTML */
+}
