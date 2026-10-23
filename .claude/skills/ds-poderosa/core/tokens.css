@@ -1,0 +1,53 @@
+/* Valores de color de Poderosa. Solo modo light.
+   Fuente: docs/inputs/design-system-colors.md, secciones 1, 2 y 4. Se edita a mano.
+   El doc define también modo oscuro; se omitió a propósito (ver references/README.md). */
+
+:root {
+  /* Primitivos. Nunca en componentes: solo alimentan los semánticos. */
+  --lilac-50: #F6EDF3;  --lilac-100: #EFDCEA; --lilac-200: #E7C5DD; --lilac-300: #D9A9CB;
+  --lilac-400: #C88DB8; --lilac-500: #B06E9F; --lilac-700: #7E4A70; --lilac-900: #4A2A42;
+
+  --cyan-100: #D6F7F8; --cyan-200: #A8EEF0; --cyan-300: #5FE0E5;
+  --cyan-400: #2FC9CF; --cyan-500: #17A8AE; --cyan-700: #0F7276;
+
+  --yellow-100: #FCF3CC; --yellow-200: #F9E9A0; --yellow-300: #F4DD6A;
+  --yellow-400: #E8C93A; --yellow-500: #C9A71E; --yellow-700: #8A7012;
+
+  --coral-100: #FBE1E1; --coral-300: #EA8588; --coral-500: #D85D61; --coral-700: #9E3A3D;
+
+  --sand-50: #F8F2EE; --sand-100: #EFE3DC; --sand-200: #DCC4B7; --sand-300: #C7A896; --sand-500: #A29685;
+
+  --mustard-200: #F1D0A5; --mustard-400: #D9933F;
+
+  --ink-50: #F4F3F2; --ink-100: #E4E2E0; --ink-300: #B5B1AD;
+  --ink-500: #7A7572; --ink-700: #45413E; --ink-900: #171616;
+
+  --white: #FFFFFF; --black: #000000;
+
+  /* Semánticos. Los componentes consumen solo estos. */
+  --bg-canvas: var(--lilac-200);
+  --bg-surface: var(--sand-50);
+  --bg-surface-2: var(--sand-100);
+  --bg-muted: var(--sand-200);
+
+  --text-primary: var(--ink-900);
+  --text-secondary: var(--ink-700);
+  --text-tertiary: var(--ink-500);
+  --text-on-accent: var(--ink-900);
+  --text-on-coral: var(--white);
+  --text-link: var(--cyan-700);
+
+  --accent-primary: var(--cyan-300);        /* botón principal, highlight */
+  --accent-primary-hover: var(--cyan-400);
+  --accent-secondary: var(--yellow-300);    /* CTA secundario, énfasis */
+  --accent-tertiary: var(--coral-300);      /* chips, badges, decoración */
+
+  --state-success: var(--cyan-500);
+  --state-warning: var(--mustard-400);
+  --state-error: var(--coral-500);
+  --state-info: var(--lilac-500);
+
+  --border-subtle: var(--sand-200);
+  --border-strong: var(--ink-300);
+  --border-focus: var(--cyan-500);
+}

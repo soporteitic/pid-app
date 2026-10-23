@@ -1,0 +1,29 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "fraunces",
+        "createdAt": "2026-10-23T21:46:53.898Z",
+        "reason": "user confirmed: plan aprobado fija Fraunces/Nunito, Lora/Inter, Playfair Display/DM Sans como pares tipográficos de las 3 opciones"
+      },
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-10-23T21:46:54.409Z",
+        "reason": "user confirmed: plan aprobado fija Lora/Inter como par tipográfico de la opción B"
+      },
+      {
+        "rule": "repeated-container-text",
+        "value": "*",
+        "files": [
+          "app/poc-design-system/index.html"
+        ],
+        "createdAt": "2026-10-23T21:47:01.976Z",
+        "reason": "wordmark Poderosa repetido porque las 6 pantallas viven ocultas en un mismo contenedor .screen; replica docs/inputs/referencias"
+      }
+    ]
+  }
+}

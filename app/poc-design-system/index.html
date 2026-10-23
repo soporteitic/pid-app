@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="es" data-theme="a">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Poderosa · PoC design system</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@600;700&family=Inter:wght@400;500;700&family=Lora:wght@600;700&family=Nunito:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+/* ---------- Primitivos (docs/inputs/design-system-colors.md, sin cian/amarillo) ---------- */
+:root{
+  --lilac-50:#F6EDF3;--lilac-100:#EFDCEA;--lilac-200:#E7C5DD;--lilac-300:#D9A9CB;--lilac-500:#B06E9F;--lilac-700:#7E4A70;--lilac-900:#4A2A42;
+  --coral-100:#FBE1E1;--coral-300:#EA8588;--coral-500:#D85D61;--coral-700:#9E3A3D;
+  --sand-50:#F8F2EE;--sand-100:#EFE3DC;--sand-200:#DCC4B7;--sand-300:#C7A896;
+  --ink-50:#F4F3F2;--ink-100:#E4E2E0;--ink-300:#B5B1AD;--ink-500:#7A7572;--ink-700:#45413E;--ink-900:#171616;
+  --white:#FFFFFF;
+}
+/* ---------- Opción A · Lila cálida ---------- */
+:root[data-theme="a"]{
+  --bg-canvas:var(--lilac-200);--bg-surface:var(--sand-50);--bg-surface-2:var(--sand-100);--bg-muted:var(--lilac-100);
+  --text-primary:var(--ink-900);--text-secondary:var(--ink-700);--text-brand:var(--coral-700);
+  --cta-bg:var(--ink-900);--cta-text:var(--sand-50);
+  --chip-active-bg:var(--ink-900);--chip-active-text:var(--sand-50);
+  --accent-soft:var(--lilac-300);--border-subtle:var(--sand-200);
+  --radius-card:24px;--radius-cta:999px;--radius-field:16px;
+  --font-title:"Fraunces",Georgia,serif;--font-body:"Nunito",system-ui,sans-serif;
+  --shadow:0 10px 30px rgba(23,22,22,.10);
+}
+/* ---------- Opción B · Crema serena ---------- */
+:root[data-theme="b"]{
+  --bg-canvas:var(--sand-50);--bg-surface:var(--white);--bg-surface-2:var(--lilac-100);--bg-muted:var(--lilac-200);
+  --text-primary:var(--ink-900);--text-secondary:var(--ink-700);--text-brand:var(--coral-700);
+  --cta-bg:var(--coral-500);--cta-text:var(--white);
+  --chip-active-bg:var(--coral-500);--chip-active-text:var(--ink-900);
+  --accent-soft:var(--lilac-200);--border-subtle:var(--lilac-100);
+  --radius-card:20px;--radius-cta:16px;--radius-field:14px;
+  --font-title:"Lora",Georgia,serif;--font-body:"Inter",system-ui,sans-serif;
+  --shadow:0 8px 24px rgba(23,22,22,.08);
+}
+/* ---------- Opción C · Editorial ---------- */
+:root[data-theme="c"]{
+  --bg-canvas:var(--lilac-50);--bg-surface:var(--white);--bg-surface-2:var(--sand-50);--bg-muted:var(--ink-100);
+  --text-primary:var(--ink-900);--text-secondary:var(--ink-700);--text-brand:var(--coral-700);
+  --cta-bg:var(--ink-900);--cta-text:var(--white);
+  --chip-active-bg:var(--coral-300);--chip-active-text:var(--ink-900);
+  --accent-soft:var(--coral-100);--border-subtle:var(--ink-100);
+  --radius-card:12px;--radius-cta:8px;--radius-field:8px;
+  --font-title:"Playfair Display",Georgia,serif;--font-body:"DM Sans",system-ui,sans-serif;
+  --shadow:0 6px 18px rgba(23,22,22,.06);
+}
+
+/* ---------- Página (fuera del celular: neutra, no forma parte del DS) ---------- */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:#1b1719;color:#f3eef0;font:15px/1.5 "Inter","DM Sans",system-ui,sans-serif;
+  display:grid;grid-template-columns:320px 1fr;min-height:100vh;
+}
+.panel{padding:28px 24px;border-right:1px solid #2d262a;display:flex;flex-direction:column;gap:22px;position:sticky;top:0;height:100vh;overflow:auto}
+.panel h1{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#a89aa2;font-weight:600}
+.panel h2{font-size:22px;font-weight:700;margin-top:4px}
+.opts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.opts button{
+  background:#2a2327;border:1px solid #3a3136;color:#f3eef0;padding:12px 8px;border-radius:12px;cursor:pointer;
+  font:600 14px/1.2 inherit;display:flex;flex-direction:column;align-items:center;gap:6px;
+}
+.opts button span{font-size:11px;font-weight:500;color:#a89aa2}
+.opts button[aria-pressed="true"]{background:#f3eef0;color:#1b1719;border-color:#f3eef0}
+.opts button[aria-pressed="true"] span{color:#5c4f56}
+.intent{color:#cfc2c8;font-size:14px}
+.swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.sw{display:flex;flex-direction:column;gap:5px;font-size:10px;color:#a89aa2;line-height:1.2}
+.sw i{display:block;height:36px;border-radius:8px;border:1px solid rgba(255,255,255,.08)}
+.fonts{display:flex;flex-direction:column;gap:8px}
+.fonts div{background:#2a2327;border-radius:10px;padding:10px 12px}
+.fonts small{display:block;font-size:10px;color:#a89aa2;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
+.fonts .ft{font-family:var(--font-title);font-size:20px;font-weight:700}
+.fonts .fb{font-family:var(--font-body);font-size:15px}
+.panel .foot{margin-top:auto;font-size:12px;color:#a89aa2}
+.panel .foot code{color:#cfc2c8}
+.stage{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:32px 16px}
+.extbtn{background:transparent;border:1px solid #4a3f45;color:#cfc2c8;padding:10px 16px;border-radius:999px;cursor:pointer;font:500 13px inherit}
+.extbtn:hover{border-color:#cfc2c8}
+
+/* ---------- Celular ---------- */
+.phone{
+  width:390px;height:844px;border-radius:52px;background:#3b3537;padding:12px;position:relative;flex:none;
+  box-shadow:0 30px 80px rgba(0,0,0,.5);
+}
+.screen{
+  position:relative;width:100%;height:100%;border-radius:42px;overflow:hidden;
+  background:var(--bg-surface);color:var(--text-primary);font-family:var(--font-body);
+  display:flex;flex-direction:column;
+}
+.statusbar{height:52px;display:flex;align-items:center;padding:0 32px;font-weight:700;font-size:15px;flex:none;position:relative;z-index:2}
+.island{position:absolute;left:50%;top:14px;transform:translateX(-50%);width:120px;height:32px;border-radius:999px;background:#3b3537}
+.view{flex:1;overflow:auto;padding:16px 24px 24px;display:none;flex-direction:column;gap:14px;scrollbar-width:none}
+.view::-webkit-scrollbar{display:none}
+.view.is-active{display:flex}
+.view.canvas{background:var(--bg-canvas)}
+
+.t{font-family:var(--font-title)}
+.wordmark{font-family:var(--font-body);font-weight:800;letter-spacing:.22em;font-size:14px;color:var(--text-brand);text-transform:uppercase}
+.h1{font-size:34px;line-height:1.1;font-weight:700}
+.h2{font-size:28px;line-height:1.15;font-weight:700}
+.sub{color:var(--text-secondary);font-size:18px}
+.muted{color:var(--text-secondary)}
+.eyebrow{font-weight:800;letter-spacing:.16em;font-size:12px;color:var(--text-brand);text-transform:uppercase}
+.card{background:var(--bg-muted);border-radius:var(--radius-card);padding:22px;display:flex;flex-direction:column;gap:10px}
+.btn{
+  background:var(--cta-bg);color:var(--cta-text);border:0;border-radius:var(--radius-cta);padding:16px 28px;
+  font:700 18px var(--font-body);cursor:pointer;align-self:flex-start;
+}
+.btn.block{align-self:stretch;text-align:center}
+.pill{background:var(--accent-soft);color:var(--text-primary);border-radius:999px;padding:6px 16px;font-weight:700;font-size:15px}
+.row{display:flex;align-items:center;gap:14px}
+.row.between{justify-content:space-between}
+.list{display:flex;flex-direction:column;gap:14px}
+.ico{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;flex:none}
+.ico svg{width:24px;height:24px}
+.ico.a{background:var(--accent-soft)}.ico.b{background:var(--bg-surface-2)}
+.grow{flex:1;font-size:18px}
+.rel{color:var(--text-secondary);font-size:15px}
+.chips{display:flex;gap:10px}
+.chip{border:1px solid var(--border-subtle);background:transparent;color:var(--text-primary);border-radius:999px;padding:9px 18px;font:500 16px var(--font-body);cursor:pointer}
+.chip.on{background:var(--chip-active-bg);color:var(--chip-active-text);border-color:var(--chip-active-bg)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px 20px}
+.prod{cursor:pointer;display:flex;flex-direction:column;gap:8px;background:none;border:0;text-align:left;font:inherit;color:inherit;padding:0}
+.tile{height:150px;border-radius:var(--radius-card);display:grid;place-items:center}
+.tile svg{width:56px;height:56px}
+.tile.t1{background:var(--accent-soft)}.tile.t2{background:var(--bg-surface-2)}.tile.t3{background:var(--bg-muted)}.tile.t4{background:var(--coral-100)}
+.prod b{font-size:19px;line-height:1.3}
+.price{color:var(--text-secondary);font-size:17px}
+.field{border:1px solid var(--border-subtle);border-radius:var(--radius-field);padding:16px 18px;display:flex;align-items:center;gap:12px;color:var(--text-secondary);font-size:18px;background:var(--bg-surface)}
+.field svg{width:24px;height:24px}
+.field.half{flex:1}
+.hr{height:1px;background:var(--border-subtle)}
+.verse{line-height:1.45;font-size:20px;padding:6px 10px;border-radius:12px}
+.verse b{color:var(--text-brand);margin-right:4px}
+.verse.hl{background:var(--bg-surface-2)}
+.select{background:var(--bg-surface-2);border-radius:var(--radius-field);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;font:700 22px var(--font-body)}
+.label{color:var(--text-secondary);font-size:17px}
+.opt{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--border-subtle);font-size:20px}
+.opt:last-child{border-bottom:0}
+.radio{width:36px;height:36px;border-radius:50%;border:2px solid var(--border-subtle);display:grid;place-items:center}
+.radio.on{background:var(--accent-soft);border-color:var(--accent-soft)}
+.radio svg{width:18px;height:18px}
+.toggle{width:68px;height:38px;border-radius:999px;background:var(--accent-soft);position:relative;flex:none}
+.toggle::after{content:"";position:absolute;right:4px;top:4px;width:30px;height:30px;border-radius:50%;background:var(--bg-surface)}
+.pref{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 0}
+.pref b{font-size:20px}
+.pref small{display:block;color:var(--text-secondary);font-size:15px}
+.link{display:flex;justify-content:space-between;align-items:center;padding:16px 0;font-weight:700;font-size:20px;cursor:pointer}
+.back{background:none;border:0;cursor:pointer;color:var(--text-primary);display:flex;align-items:center;padding:0}
+.back svg{width:28px;height:28px}
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:8px}
+.hero .side{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.hero img{width:84px;height:auto;opacity:.92;margin-right:-6px;margin-bottom:-4px;filter:saturate(.9)}
+
+/* notificaciones (pantalla de bloqueo) */
+.lock{align-items:center;justify-content:flex-start;gap:8px;padding-top:70px}
+.lock .time{font:800 92px/1 var(--font-body)}
+.lock .date{font-size:24px;margin-bottom:70px}
+.push{background:var(--bg-surface);border-radius:var(--radius-card);padding:16px;width:100%;display:flex;flex-direction:column;gap:6px;box-shadow:var(--shadow);cursor:pointer;text-align:left;border:0;font:inherit;color:inherit}
+.push .hd{display:flex;align-items:center;gap:10px}
+.push .hd .ico{width:40px;height:40px;border-radius:10px}
+.push .hd .wordmark{flex:1}
+.push .hd span.when{color:var(--text-secondary)}
+.push b{font-size:19px;line-height:1.3}
+.push p{color:var(--text-secondary);font-size:18px;line-height:1.3}
+.tap{color:var(--text-secondary);font-size:17px;margin-top:auto;margin-bottom:60px}
+
+/* tab bar */
+.tabbar{flex:none;height:92px;border-top:1px solid var(--border-subtle);background:var(--bg-surface);display:grid;grid-template-columns:repeat(4,1fr);padding:10px 24px 18px}
+.tab{background:none;border:0;cursor:pointer;display:grid;place-items:center;padding:0}
+.tab i{width:76px;height:56px;border-radius:999px;display:grid;place-items:center;color:var(--accent-soft)}
+.tab i svg{width:30px;height:30px}
+.tab.on i{background:var(--accent-soft);color:var(--text-primary)}
+
+/* ============================================================
+   Variación de componentes por opción. Mismo DOM, mismas medidas.
+   A: relleno y pastilla · B: contorno, aire y sombra · C: editorial plano
+   ============================================================ */
+
+/* ---------- A · relleno y pastilla ---------- */
+[data-theme="a"] .field{background:var(--bg-surface-2);border-color:transparent}
+[data-theme="a"] .select{background:var(--bg-muted)}
+[data-theme="a"] .push{border-radius:28px}
+[data-theme="a"] .verse.hl{background:var(--bg-muted)}
+[data-theme="a"] .radio{border-color:var(--bg-muted);background:var(--bg-muted)}
+[data-theme="a"] .radio.on{background:var(--cta-bg);border-color:var(--cta-bg);color:var(--cta-text)}
+[data-theme="a"] .toggle{background:var(--cta-bg)}
+[data-theme="a"] .hero img{border-radius:50%;background:var(--bg-muted);padding:6px;width:88px}
+[data-theme="a"] .btn{box-shadow:0 8px 20px rgba(23,22,22,.14)}
+
+/* ---------- B · contorno, aire y sombra ---------- */
+[data-theme="b"] .card{background:var(--bg-surface);border:1px solid var(--bg-muted);box-shadow:var(--shadow)}
+[data-theme="b"] .card .btn{align-self:stretch;text-align:center}
+[data-theme="b"] .pill{background:transparent;border:1.5px solid var(--bg-muted);color:var(--text-secondary)}
+[data-theme="b"] .ico.a{background:var(--bg-surface-2)}
+[data-theme="b"] .ico.b{background:transparent;border:1.5px solid var(--bg-muted)}
+[data-theme="b"] .chip{border:1.5px solid var(--border-subtle);color:var(--text-secondary)}
+[data-theme="b"] .chip.on{background:var(--coral-100);border-color:var(--coral-500);color:var(--coral-700);font-weight:700}
+[data-theme="b"] .prod{border:1px solid var(--bg-surface-2);border-radius:var(--radius-card);padding:8px 8px 12px;box-shadow:var(--shadow);background:var(--bg-surface)}
+[data-theme="b"] .tile{height:134px;border-radius:calc(var(--radius-card) - 6px)}
+[data-theme="b"] .tile.t3{background:var(--sand-100)}
+[data-theme="b"] .prod b{padding:0 6px}
+[data-theme="b"] .price{padding:0 6px;color:var(--coral-700);font-weight:600}
+[data-theme="b"] .field{border:1.5px solid var(--border-subtle);background:var(--bg-surface)}
+[data-theme="b"] .field svg{color:var(--coral-500)}
+[data-theme="b"] .select{background:var(--bg-surface);border:1.5px solid var(--bg-muted)}
+[data-theme="b"] .select svg{color:var(--coral-500)}
+[data-theme="b"] .verse.hl{background:var(--bg-surface-2);box-shadow:inset 0 0 0 1.5px var(--bg-muted)}
+[data-theme="b"] .radio{border:2px solid var(--bg-muted);background:transparent}
+[data-theme="b"] .radio.on{background:transparent;border-color:var(--coral-500);color:var(--coral-500)}
+[data-theme="b"] .radio.on svg{stroke-width:4}
+[data-theme="b"] .toggle{background:var(--coral-500)}
+[data-theme="b"] .toggle::after{background:var(--white)}
+[data-theme="b"] .hr{background:var(--bg-muted)}
+[data-theme="b"] .tabbar{border-top-color:var(--bg-surface-2);box-shadow:0 -8px 24px rgba(23,22,22,.05)}
+[data-theme="b"] .tab i{color:var(--lilac-300);position:relative}
+[data-theme="b"] .tab.on i{background:transparent;color:var(--coral-700)}
+[data-theme="b"] .tab.on i::after{content:"";position:absolute;left:50%;bottom:2px;width:6px;height:6px;border-radius:50%;background:var(--coral-500);transform:translateX(-50%)}
+[data-theme="b"] .push{border:1px solid var(--bg-surface-2)}
+[data-theme="b"] .hero img{width:80px}
+[data-theme="b"] .link svg{color:var(--coral-500)}
+
+/* ---------- C · editorial plano ---------- */
+[data-theme="c"] .screen{background:var(--bg-canvas)}
+[data-theme="c"] .wordmark{font-family:var(--font-title);font-style:italic;text-transform:none;letter-spacing:.02em;font-size:18px;font-weight:600}
+[data-theme="c"] .eyebrow{letter-spacing:.2em;font-weight:500;font-size:11px;color:var(--text-secondary)}
+[data-theme="c"] .h1,[data-theme="c"] .h2{letter-spacing:-.01em}
+[data-theme="c"] .card{background:transparent;border-top:1px solid var(--text-primary);border-bottom:1px solid var(--text-primary);border-radius:0;padding:20px 0}
+[data-theme="c"] .btn{border-radius:4px;font:600 15px var(--font-body);letter-spacing:.12em;text-transform:uppercase;padding:16px 24px}
+[data-theme="c"] .pill{background:transparent;border:1px solid var(--text-primary);border-radius:2px;font-weight:600;font-size:13px;letter-spacing:.08em;padding:6px 12px}
+[data-theme="c"] .ico{border-radius:0;background:transparent;border:1px solid var(--border-subtle)}
+[data-theme="c"] .ico.a{background:var(--accent-soft);border-color:var(--accent-soft)}
+[data-theme="c"] .rel{font-variant-numeric:tabular-nums}
+[data-theme="c"] .chips{border-bottom:1px solid var(--text-primary);gap:0}
+[data-theme="c"] .chip{border:0;border-radius:0;padding:10px 16px 12px;color:var(--text-secondary);position:relative}
+[data-theme="c"] .chip.on{background:transparent;color:var(--text-primary);font-weight:700}
+[data-theme="c"] .chip.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;background:var(--text-primary)}
+[data-theme="c"] .tile{border-radius:0;border:1px solid var(--border-subtle)}
+[data-theme="c"] .tile.t2{background:var(--bg-surface)}
+[data-theme="c"] .prod b{font-family:var(--font-title);font-weight:600}
+[data-theme="c"] .price{font-variant-numeric:tabular-nums;color:var(--text-primary);border-top:1px solid var(--border-subtle);padding-top:6px;font-size:15px;letter-spacing:.04em}
+[data-theme="c"] .field{border:0;border-bottom:1px solid var(--text-primary);border-radius:0;background:transparent;padding:14px 0}
+[data-theme="c"] .select{background:transparent;border:0;border-bottom:1px solid var(--text-primary);border-radius:0;padding:12px 0;font-family:var(--font-title);font-size:26px;font-weight:600}
+[data-theme="c"] .verse{border-radius:0;padding:4px 0}
+[data-theme="c"] .verse b{font-family:var(--font-title);font-style:italic;font-weight:600;font-size:14px;vertical-align:super;color:var(--text-secondary)}
+[data-theme="c"] .verse.hl{background:var(--accent-soft);padding:8px 12px}
+[data-theme="c"] .radio{border:1px solid var(--text-primary);background:transparent}
+[data-theme="c"] .radio.on{background:var(--text-primary);border-color:var(--text-primary);color:var(--white)}
+[data-theme="c"] .toggle{background:var(--text-primary);border-radius:4px;width:60px;height:32px}
+[data-theme="c"] .toggle::after{border-radius:2px;width:24px;height:24px;background:var(--white)}
+[data-theme="c"] .opt{border-bottom-color:var(--text-primary)}
+[data-theme="c"] .opt b{font-family:var(--font-title);font-weight:600}
+[data-theme="c"] .label{text-transform:uppercase;letter-spacing:.16em;font-size:12px;font-weight:500}
+[data-theme="c"] .hr{background:var(--text-primary)}
+[data-theme="c"] .tabbar{border-top:1px solid var(--text-primary);background:var(--bg-canvas)}
+[data-theme="c"] .tab i{color:var(--ink-300);border-radius:0;position:relative}
+[data-theme="c"] .tab.on i{background:transparent;color:var(--text-primary)}
+[data-theme="c"] .tab.on i::before{content:"";position:absolute;left:18px;right:18px;top:-11px;height:3px;background:var(--text-primary)}
+[data-theme="c"] .push{border-radius:4px;border:1px solid var(--border-subtle);box-shadow:none}
+[data-theme="c"] .lock .time{font-family:var(--font-title);font-weight:600;letter-spacing:-.02em}
+[data-theme="c"] .hero img{width:76px;filter:grayscale(.25) saturate(.9)}
+[data-theme="c"] .link{font-family:var(--font-title);font-weight:600}
+
+@media (max-width:860px){
+  body{grid-template-columns:1fr}
+  .panel{position:static;height:auto;border-right:0;border-bottom:1px solid #2d262a}
+  .stage{padding:24px 0}
+  .phone{width:min(390px,100vw - 32px);height:auto;aspect-ratio:390/844}
+}
+</style>
+</head>
+<body>
+
+<aside class="panel">
+  <div>
+    <h1>Poderosa · PoC design system</h1>
+    <h2 id="optName">A · Lila cálida</h2>
+  </div>
+  <div class="opts" role="group" aria-label="Opción de design system">
+    <button data-opt="a" aria-pressed="true">A<span>Lila cálida</span></button>
+    <button data-opt="b" aria-pressed="false">B<span>Crema serena</span></button>
+    <button data-opt="c" aria-pressed="false">C<span>Editorial</span></button>
+  </div>
+  <p class="intent" id="optIntent"></p>
+  <p class="intent" id="optComp" style="color:#a89aa2;font-size:13px"></p>
+  <div class="swatches" id="swatches"></div>
+  <div class="fonts">
+    <div><small>Título</small><div class="ft" id="fontTitle">Fraunces</div></div>
+    <div><small>Cuerpo</small><div class="fb" id="fontBody">Nunito</div></div>
+  </div>
+  <p class="foot">Cambian tokens y estilo de componentes. Layout y textos idénticos a <code>docs/inputs/referencias/</code>. Paleta: <code>design-system-colors.md</code>.</p>
+</aside>
+
+<main class="stage">
+  <div class="phone">
+    <div class="screen">
+      <div class="statusbar">9:41<div class="island"></div></div>
+
+      <!-- 01 Inicio -->
+      <section class="view is-active" data-screen="inicio">
+        <div class="hero">
+          <div>
+            <div class="wordmark">Poderosa</div>
+            <div class="h1 t">Hola, María</div>
+            <div class="sub">Lunes 19 de octubre</div>
+          </div>
+          <div class="side">
+            <span class="pill">ES</span>
+            <img src="ilustracion_mujer.png" alt="">
+          </div>
+        </div>
+        <div class="card">
+          <div class="eyebrow">Devocional del día</div>
+          <div class="h2 t">La Palabra que transforma todo</div>
+          <div style="color:var(--text-brand);font-weight:700;font-size:20px">Hebreos 4:12</div>
+          <p class="muted" style="font-size:19px;line-height:1.45">Una Palabra viva que llega a lo más íntimo de tu corazón.</p>
+          <button class="btn" style="margin-top:8px">Leer devocional</button>
+        </div>
+        <div class="h2 t" style="font-size:26px;margin-top:6px">Anteriores</div>
+        <div class="list">
+          <div class="row"><span class="ico a"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-book"/></svg></span><span class="grow">Intimidad con Dios</span><span class="rel">Ayer</span></div>
+          <div class="row"><span class="ico b"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-book"/></svg></span><span class="grow">Descanso para el alma</span><span class="rel">17 oct</span></div>
+        </div>
+      </section>
+
+      <!-- 02 Biblia -->
+      <section class="view" data-screen="biblia">
+        <div class="row between" style="margin-top:14px">
+          <div class="h1 t">Biblia</div>
+          <span class="pill" style="background:var(--bg-surface-2)">RV 1909</span>
+        </div>
+        <div class="select">Salmos 23 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></div>
+        <div class="list" style="gap:8px">
+          <p class="verse hl"><b>1</b>Jehová es mi pastor; nada me faltará.</p>
+          <p class="verse"><b>2</b>En lugares de delicados pastos me hará yacer: Junto a aguas de reposo me pastoreará.</p>
+          <p class="verse"><b>3</b>Confortará mi alma; Guiaráme por sendas de justicia por amor de su nombre.</p>
+          <p class="verse"><b>4</b>Aunque ande en valle de sombra de muerte, No temeré mal alguno; porque tú estarás conmigo.</p>
+        </div>
+      </section>
+
+      <!-- 03 Notificaciones (pantalla de bloqueo) -->
+      <section class="view canvas lock" data-screen="push">
+        <div class="time">7:00</div>
+        <div class="date">lunes 19 de octubre</div>
+        <button class="push" data-go="inicio">
+          <div class="hd"><span class="ico a"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-book"/></svg></span><span class="wordmark">Poderosa</span><span class="when">ahora</span></div>
+          <b>Nuevo devocional: La Palabra que transforma todo</b>
+          <p>Tu lectura de hoy ya está disponible.</p>
+        </button>
+        <button class="push" data-go="tienda">
+          <div class="hd"><span class="ico a"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-book"/></svg></span><span class="wordmark">Poderosa</span><span class="when">8:15</span></div>
+          <b>Nuevo en la tienda</b>
+          <p>Ya puedes comprar la Cápsula Poderosa.</p>
+        </button>
+        <div class="tap">Toca para abrir</div>
+      </section>
+
+      <!-- 04 Tienda -->
+      <section class="view" data-screen="tienda">
+        <div class="wordmark">Poderosa</div>
+        <div class="row between">
+          <div class="h1 t">Tienda</div>
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><use href="#i-bag"/></svg>
+        </div>
+        <div class="chips"><button class="chip on">Todo</button><button class="chip">Libros</button><button class="chip">Devocionales</button></div>
+        <div class="grid2">
+          <button class="prod" data-go="pago"><div class="tile t1"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-book"/></svg></div><b>Cápsula Poderosa</b><span class="price">USD 9.90</span></button>
+          <button class="prod" data-go="pago"><div class="tile t2"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-book"/></svg></div><b>Devocional 30 días</b><span class="price">USD 12.90</span></button>
+          <button class="prod" data-go="pago"><div class="tile t3"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-book"/></svg></div><b>Libro impreso</b><span class="price">USD 24.90</span></button>
+          <button class="prod" data-go="pago"><div class="tile t4"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-book"/></svg></div><b>Guía de oración</b><span class="price">USD 7.90</span></button>
+        </div>
+      </section>
+
+      <!-- 05 Pago -->
+      <section class="view" data-screen="pago">
+        <div class="row" style="margin-top:14px;gap:8px">
+          <button class="back" data-go="tienda" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+          <div class="h1 t" style="font-size:32px">Tu compra</div>
+        </div>
+        <div class="row" style="background:var(--bg-surface-2);border-radius:var(--radius-card);padding:18px">
+          <span class="ico a" style="width:80px;height:80px;border-radius:var(--radius-field)"><svg viewBox="0 0 24 24" fill="currentColor" style="width:40px;height:40px"><use href="#i-book"/></svg></span>
+          <div><b style="font-size:22px">Cápsula Poderosa</b><div class="muted" style="font-size:18px">Formato digital</div></div>
+        </div>
+        <div class="h2 t" style="font-size:24px;margin-top:8px">Pagar con tarjeta</div>
+        <div class="field"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2H3zm0 4h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm3 4h5v2H6z"/></svg>Número de tarjeta</div>
+        <div class="row"><div class="field half">MM / AA</div><div class="field half">CVV</div></div>
+        <div class="hr" style="margin-top:8px"></div>
+        <div class="row between" style="font-size:24px;font-weight:700"><span>Total</span><span>USD 9.90</span></div>
+        <button class="btn block" style="margin-top:16px;padding:20px">Pagar USD 9.90</button>
+        <div class="row" style="justify-content:center;gap:8px;color:var(--text-secondary);font-size:17px"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2zm2 0h6V8a3 3 0 0 0-6 0z"/></svg>Pago seguro con tarjeta</div>
+        <div class="muted" style="text-align:center;font-size:17px">Recibirás tu compra por correo</div>
+      </section>
+
+      <!-- 06 Perfil -->
+      <section class="view" data-screen="perfil">
+        <div class="h1 t" style="margin-top:14px">Mi perfil</div>
+        <div class="label">Idioma</div>
+        <div>
+          <div class="opt"><b>Español</b><span class="radio on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></span></div>
+          <div class="opt">English<span class="radio"></span></div>
+          <div class="opt">Português<span class="radio"></span></div>
+        </div>
+        <div class="label" style="margin-top:10px">Notificaciones</div>
+        <div class="pref"><div><b>Devocional diario</b><small>7:00 a. m.</small></div><span class="toggle"></span></div>
+        <div class="pref"><div><b>Novedades de la tienda</b><small>Cuando haya productos</small></div><span class="toggle"></span></div>
+        <div class="hr"></div>
+        <div class="link">Mis compras <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></div>
+      </section>
+
+      <nav class="tabbar" id="tabbar">
+        <button class="tab on" data-tab="inicio" aria-label="Inicio"><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3 2 12h3v8a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-8h3z"/></svg></i></button>
+        <button class="tab" data-tab="biblia" aria-label="Biblia"><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 2h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 0 0 2h12v1H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm5 4v3H8v2h3v5h2v-5h3V9h-3V6z"/></svg></i></button>
+        <button class="tab" data-tab="tienda" aria-label="Tienda"><i><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-bag"/></svg></i></button>
+        <button class="tab" data-tab="perfil" aria-label="Perfil"><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm-8 9a8 8 0 0 1 16 0z"/></svg></i></button>
+      </nav>
+    </div>
+  </div>
+  <button class="extbtn" data-go="push">Ver notificación push</button>
+</main>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <path id="i-book" d="M3 5.5A1.5 1.5 0 0 1 4.5 4H9a3 3 0 0 1 3 3 3 3 0 0 1 3-3h4.5A1.5 1.5 0 0 1 21 5.5V18a1 1 0 0 1-1 1h-5a3 3 0 0 0-3 3 3 3 0 0 0-3-3H4a1 1 0 0 1-1-1z"/>
+    <path id="i-bag" d="M7 8V6a5 5 0 0 1 10 0v2h2.5a1 1 0 0 1 1 .9l1 11A1 1 0 0 1 20.5 21h-17a1 1 0 0 1-1-1.1l1-11a1 1 0 0 1 1-.9zm2 0h6V6a3 3 0 0 0-6 0z"/>
+  </defs>
+</svg>
+
+<script>
+const OPTS = {
+  a:{name:"A · Lila cálida",intent:"Cálida y envolvente: el lila es el fondo de toda la app, el negro manda en la acción.",title:"Fraunces",body:"Nunito",comp:"Componentes rellenos y en pastilla: campos sin borde, chips y botones redondos, toggles y radios negros, tab activa con óvalo lila.",
+     sw:[["canvas","lilac-200"],["surface","sand-50"],["surface-2","sand-100"],["muted","lilac-100"],["brand","coral-700"],["cta","ink-900"],["accent","lilac-300"],["border","sand-200"]]},
+  b:{name:"B · Crema serena",intent:"Luminosa y sobria: crema como lienzo, lila en superficies, coral solo en el botón que importa.",title:"Lora",body:"Inter",comp:"Componentes de contorno con aire: cards blancas con borde y sombra suave, chips y campos delineados, coral solo en CTA, toggles y punto de tab activa.",
+     sw:[["canvas","sand-50"],["surface","white"],["surface-2","lilac-100"],["muted","lilac-200"],["brand","coral-700"],["cta","coral-500"],["accent","lilac-200"],["border","lilac-100"]]},
+  c:{name:"C · Editorial",intent:"Editorial y limpia: casi blanco, negro en acción y títulos, coral pastel como detalle.",title:"Playfair Display",body:"DM Sans",comp:"Componentes editoriales planos: filetes en vez de cajas, campos subrayados, filtros con subrayado, botón en mayúsculas, tab activa con barra superior.",
+     sw:[["canvas","lilac-50"],["surface","white"],["surface-2","sand-50"],["muted","ink-100"],["brand","coral-700"],["cta","ink-900"],["accent","coral-100"],["border","ink-100"]]},
+};
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+
+function setTheme(id){
+  document.documentElement.dataset.theme = id;
+  const o = OPTS[id];
+  $("#optName").textContent = o.name;
+  $("#optIntent").textContent = o.intent;
+  $("#optComp").textContent = o.comp;
+  $("#fontTitle").textContent = o.title;
+  $("#fontBody").textContent = o.body;
+  $("#swatches").innerHTML = o.sw.map(([role, tok]) =>
+    `<div class="sw"><i style="background:var(--${tok})"></i>${role}<br>${tok}</div>`).join("");
+  $$(".opts button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.opt === id)));
+}
+function go(screen){
+  $$(".view").forEach(v => v.classList.toggle("is-active", v.dataset.screen === screen));
+  $$(".tab").forEach(t => t.classList.toggle("on", t.dataset.tab === screen));
+  $("#tabbar").style.display = screen === "push" ? "none" : "";
+  $$(".view.is-active").forEach(v => v.scrollTop = 0);
+}
+$$(".opts button").forEach(b => b.addEventListener("click", () => setTheme(b.dataset.opt)));
+$$(".tab").forEach(t => t.addEventListener("click", () => go(t.dataset.tab)));
+$$("[data-go]").forEach(el => el.addEventListener("click", () => go(el.dataset.go)));
+setTheme("a");
+</script>
+</body>
+</html>

@@ -4,4 +4,4 @@ Una spec por archivo (`nombre-spec.md`).
 
 ## Índice
 
-<!-- Lista aquí cada spec con su enlace -->
+- [PoC de 3 opciones de design system](poc-design-system-spec.md)

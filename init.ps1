@@ -267,11 +267,11 @@ foreach ($a in 'impeccable-asset-producer', 'impeccable-documenter', 'impeccable
 
 # Skills
 Write-Section 'Skills (.claude/skills)'
-foreach ($sk in 'ds-ibk', 'impeccable') {
+foreach ($sk in 'ds-poderosa', 'impeccable') {
   Test-Item ".claude\skills\$sk\SKILL.md" "$sk/SKILL.md"
 }
 foreach ($f in 'brand.md', 'meanings.md', 'tokens.md', 'tokens.css') {
-  Test-Item ".claude\skills\ds-ibk\core\$f" "ds-ibk/core/$f"
+  Test-Item ".claude\skills\ds-poderosa\core\$f" "ds-poderosa/core/$f"
 }
 Test-Item '.claude\skills\impeccable\scripts\bin\windows-x64\impeccable.exe' 'impeccable/scripts: binario windows'
 $refCount = 0
