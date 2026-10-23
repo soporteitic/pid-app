@@ -22,3 +22,5 @@ Tenemos 6 pantallas aprobadas por Caro. Queremos probar tres "vestidos" distinto
 3. Tocar la tab Tienda y luego el producto "Cápsula Poderosa". Resultado: aparece "Tu compra" con el botón "Pagar USD 9.90"; la flecha "<" devuelve a Tienda.
 4. Pulsar "Ver notificación push". Resultado: pantalla de bloqueo con "7:00", dos tarjetas y sin tab bar; tocar la primera tarjeta vuelve a Inicio.
 5. Reducir la ventana a 390 px de ancho. Resultado: el panel queda arriba del celular, sin scroll horizontal.
+6. En Pago, pulsar "Pagar" con los campos vacíos. Resultado: el campo de tarjeta se marca en error y aparece "Revisa el número de tarjeta (16 dígitos)". Escribir 16 dígitos, "12 / 28" y "123" y pulsar de nuevo. Resultado: "Procesando…" y luego "¡Gracias, María!"; la compra aparece en Mis compras y el contador de la bolsa sube.
+7. En Biblia, tocar "Salmos 23". Resultado: desplegable con 5 capítulos; elegir "Hebreos 4" cambia el texto y resalta el versículo 4.

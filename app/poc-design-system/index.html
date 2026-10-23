@@ -267,6 +267,90 @@ body{
 [data-theme="c"] .hero img{width:76px;filter:grayscale(.25) saturate(.9)}
 [data-theme="c"] .link{font-family:var(--font-title);font-weight:600}
 
+/* ============================================================
+   Interacciones: menús, inputs, toast, pantallas nuevas, transición
+   ============================================================ */
+:root[data-theme="a"]{--border-focus:var(--ink-900)}
+:root[data-theme="b"]{--border-focus:var(--coral-500)}
+:root[data-theme="c"]{--border-focus:var(--ink-900)}
+.screen ::selection{background:var(--accent-soft);color:var(--text-primary)}
+.screen input{caret-color:var(--text-brand)}
+.view.is-active{animation:viewin .22s cubic-bezier(.2,.7,.2,1)}
+@keyframes viewin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+button:focus-visible,.opt:focus-visible,.pref:focus-visible,.select:focus-visible,.pill:focus-visible{outline:2px solid var(--border-focus);outline-offset:2px}
+
+.pill,.select,.opt,.pref .toggle,.link,.verse,.ico-btn{cursor:pointer}
+.ico-btn{background:none;border:0;padding:0;color:var(--text-primary);position:relative;display:grid;place-items:center}
+.ico-btn .badge{position:absolute;top:-4px;right:-6px;min-width:20px;height:20px;border-radius:999px;background:var(--cta-bg);color:var(--cta-text);font:700 12px/20px var(--font-body);text-align:center;padding:0 5px}
+
+.menu{position:absolute;z-index:5;background:var(--bg-surface);border-radius:var(--radius-field);box-shadow:var(--shadow);min-width:210px;padding:6px;display:flex;flex-direction:column;gap:2px}
+.menu button{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;padding:12px 14px;border:0;background:none;font:500 17px var(--font-body);color:var(--text-primary);border-radius:calc(var(--radius-field) - 4px);cursor:pointer;text-align:left}
+.menu button:hover{background:var(--bg-surface-2)}
+.menu button.on{background:var(--accent-soft);font-weight:700}
+.menu button[disabled]{color:var(--text-secondary);cursor:default}
+.menu button[disabled] small{font-size:12px;color:var(--text-secondary)}
+.menu button[disabled]:hover{background:none}
+.scrim{position:absolute;inset:0;z-index:4}
+
+.field input{border:0;background:transparent;font:inherit;color:var(--text-primary);width:100%;outline:none;min-width:0}
+.field input::placeholder{color:var(--text-secondary)}
+.field:focus-within{border-color:var(--border-focus)}
+.field.err{border-color:var(--coral-500)}
+.ferr{color:var(--coral-700);font-size:15px;margin-top:-6px;min-height:18px}
+.btn[disabled]{opacity:.6;cursor:default}
+.btn.ghost{background:transparent;color:var(--text-primary);border:1.5px solid var(--border-subtle)}
+
+.toast{position:absolute;left:24px;right:24px;bottom:110px;background:var(--cta-bg);color:var(--cta-text);padding:12px 16px;border-radius:var(--radius-cta);text-align:center;font:600 15px var(--font-body);opacity:0;transform:translateY(8px);transition:.25s cubic-bezier(.2,.7,.2,1);pointer-events:none;z-index:6}
+.toast.show{opacity:1;transform:none}
+
+.tag{display:inline-block;background:var(--accent-soft);color:var(--text-primary);border-radius:999px;padding:4px 12px;font-size:14px;font-weight:600}
+.tags{display:flex;gap:8px;flex-wrap:wrap}
+.body p{font-size:19px;line-height:1.55;color:var(--text-primary)}
+.body{display:flex;flex-direction:column;gap:14px}
+.passage{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--bg-surface-2);border-radius:var(--radius-field);padding:14px 16px;cursor:pointer;border:0;font:inherit;color:inherit;text-align:left;width:100%}
+.passage b{color:var(--text-brand);font-size:18px}
+.passage span{color:var(--text-secondary);font-size:15px}
+.passage svg{width:22px;height:22px;flex:none}
+.verse.sel{outline:2px solid var(--border-focus);outline-offset:-2px}
+.chapnav{display:flex;justify-content:space-between;gap:10px;margin-top:auto;padding-top:10px}
+.chapnav .btn{padding:12px 20px;font-size:16px}
+
+.okmark{width:88px;height:88px;border-radius:50%;background:var(--accent-soft);display:grid;place-items:center;margin:30px auto 6px}
+.okmark svg{width:44px;height:44px}
+.center{text-align:center}
+.buy{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--border-subtle)}
+.buy:last-child{border-bottom:0}
+.buy b{font-size:18px;display:block}
+.buy small{color:var(--text-secondary);font-size:15px}
+.buy .amt{font-weight:700;font-size:17px;font-variant-numeric:tabular-nums}
+.empty{color:var(--text-secondary);text-align:center;padding:40px 0;font-size:17px}
+.pref small.pick{color:var(--text-brand);font-weight:700;cursor:pointer}
+.toggle.off{background:var(--bg-muted)}
+.toggle.off::after{right:auto;left:4px}
+.toggle{transition:background .2s}
+.toggle::after{transition:left .2s,right .2s}
+
+/* temas */
+[data-theme="a"] .tag{background:var(--bg-muted)}
+[data-theme="b"] .menu{border:1.5px solid var(--bg-muted)}
+[data-theme="b"] .tag{background:transparent;border:1.5px solid var(--bg-muted);color:var(--text-secondary)}
+[data-theme="b"] .passage{background:var(--bg-surface);border:1.5px solid var(--bg-muted)}
+[data-theme="b"] .okmark{background:var(--coral-100);color:var(--coral-700)}
+[data-theme="b"] .ico-btn .badge{background:var(--coral-500);color:var(--white)}
+[data-theme="b"] .toggle.off{background:var(--lilac-100)}
+[data-theme="c"] .menu{border:1px solid var(--text-primary);border-radius:0;box-shadow:none;padding:0;gap:0;background:var(--bg-surface)}
+[data-theme="c"] .menu button{border-radius:0;border-bottom:1px solid var(--border-subtle)}
+[data-theme="c"] .menu button:last-child{border-bottom:0}
+[data-theme="c"] .menu button.on{background:var(--accent-soft)}
+[data-theme="c"] .tag{border-radius:2px;background:transparent;border:1px solid var(--text-primary);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+[data-theme="c"] .passage{background:transparent;border:1px solid var(--text-primary);border-radius:0}
+[data-theme="c"] .okmark{border-radius:0;background:transparent;border:1px solid var(--text-primary)}
+[data-theme="c"] .toast{border-radius:4px}
+[data-theme="c"] .btn.ghost{border:1px solid var(--text-primary)}
+[data-theme="c"] .buy{border-bottom-color:var(--text-primary)}
+[data-theme="c"] .toggle.off{background:var(--ink-300)}
+[data-theme="c"] .ico-btn .badge{border-radius:2px}
+
 @media (max-width:860px){
   body{grid-template-columns:1fr}
   .panel{position:static;height:auto;border-right:0;border-bottom:1px solid #2d262a}
@@ -299,7 +383,7 @@ body{
 
 <main class="stage">
   <div class="phone">
-    <div class="screen">
+    <div class="screen" id="screen">
       <div class="statusbar">9:41<div class="island"></div></div>
 
       <!-- 01 Inicio -->
@@ -311,36 +395,39 @@ body{
             <div class="sub">Lunes 19 de octubre</div>
           </div>
           <div class="side">
-            <span class="pill">ES</span>
+            <button class="pill" id="langPill" data-go="perfil" aria-label="Cambiar idioma" style="border:0;font-family:inherit">ES</button>
             <img src="ilustracion_mujer.png" alt="">
           </div>
         </div>
-        <div class="card">
-          <div class="eyebrow">Devocional del día</div>
-          <div class="h2 t">La Palabra que transforma todo</div>
-          <div style="color:var(--text-brand);font-weight:700;font-size:20px">Hebreos 4:12</div>
-          <p class="muted" style="font-size:19px;line-height:1.45">Una Palabra viva que llega a lo más íntimo de tu corazón.</p>
-          <button class="btn" style="margin-top:8px">Leer devocional</button>
-        </div>
+        <div class="card" id="cardHoy"></div>
         <div class="h2 t" style="font-size:26px;margin-top:6px">Anteriores</div>
-        <div class="list">
-          <div class="row"><span class="ico a"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-book"/></svg></span><span class="grow">Intimidad con Dios</span><span class="rel">Ayer</span></div>
-          <div class="row"><span class="ico b"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-book"/></svg></span><span class="grow">Descanso para el alma</span><span class="rel">17 oct</span></div>
+        <div class="list" id="listPrev"></div>
+      </section>
+
+      <!-- 01b Lectura del devocional -->
+      <section class="view" data-screen="lectura">
+        <div class="row" style="margin-top:14px;gap:8px">
+          <button class="back" id="lecturaBack" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+          <div class="eyebrow" id="lecFecha"></div>
         </div>
+        <div class="h1 t" id="lecTitulo" style="font-size:30px"></div>
+        <div class="tags" id="lecTags"></div>
+        <button class="passage" id="lecPasaje"></button>
+        <div class="body" id="lecCuerpo"></div>
+        <button class="btn block" id="lecLeido" style="margin-top:6px"></button>
       </section>
 
       <!-- 02 Biblia -->
       <section class="view" data-screen="biblia">
         <div class="row between" style="margin-top:14px">
           <div class="h1 t">Biblia</div>
-          <span class="pill" style="background:var(--bg-surface-2)">RV 1909</span>
+          <button class="pill" id="verPill" style="background:var(--bg-surface-2);border:0;font-family:inherit"></button>
         </div>
-        <div class="select">Salmos 23 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></div>
-        <div class="list" style="gap:8px">
-          <p class="verse hl"><b>1</b>Jehová es mi pastor; nada me faltará.</p>
-          <p class="verse"><b>2</b>En lugares de delicados pastos me hará yacer: Junto a aguas de reposo me pastoreará.</p>
-          <p class="verse"><b>3</b>Confortará mi alma; Guiaráme por sendas de justicia por amor de su nombre.</p>
-          <p class="verse"><b>4</b>Aunque ande en valle de sombra de muerte, No temeré mal alguno; porque tú estarás conmigo.</p>
+        <button class="select" id="pasajeSel" style="width:100%;border:0;font-family:inherit;color:inherit;cursor:pointer"><span id="pasajeLabel"></span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="list" id="versos" style="gap:8px"></div>
+        <div class="chapnav">
+          <button class="btn ghost" id="capPrev">‹ Anterior</button>
+          <button class="btn ghost" id="capNext">Siguiente ›</button>
         </div>
       </section>
 
@@ -348,7 +435,7 @@ body{
       <section class="view canvas lock" data-screen="push">
         <div class="time">7:00</div>
         <div class="date">lunes 19 de octubre</div>
-        <button class="push" data-go="inicio">
+        <button class="push" id="pushDev">
           <div class="hd"><span class="ico a"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-book"/></svg></span><span class="wordmark">Poderosa</span><span class="when">ahora</span></div>
           <b>Nuevo devocional: La Palabra que transforma todo</b>
           <p>Tu lectura de hoy ya está disponible.</p>
@@ -366,15 +453,14 @@ body{
         <div class="wordmark">Poderosa</div>
         <div class="row between">
           <div class="h1 t">Tienda</div>
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><use href="#i-bag"/></svg>
+          <button class="ico-btn" id="bagBtn" aria-label="Mis compras"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><use href="#i-bag"/></svg><span class="badge" id="bagCount"></span></button>
         </div>
-        <div class="chips"><button class="chip on">Todo</button><button class="chip">Libros</button><button class="chip">Devocionales</button></div>
-        <div class="grid2">
-          <button class="prod" data-go="pago"><div class="tile t1"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-book"/></svg></div><b>Cápsula Poderosa</b><span class="price">USD 9.90</span></button>
-          <button class="prod" data-go="pago"><div class="tile t2"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-book"/></svg></div><b>Devocional 30 días</b><span class="price">USD 12.90</span></button>
-          <button class="prod" data-go="pago"><div class="tile t3"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-book"/></svg></div><b>Libro impreso</b><span class="price">USD 24.90</span></button>
-          <button class="prod" data-go="pago"><div class="tile t4"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-book"/></svg></div><b>Guía de oración</b><span class="price">USD 7.90</span></button>
+        <div class="chips" id="chips">
+          <button class="chip" data-cat="todo">Todo</button>
+          <button class="chip" data-cat="libro">Libros</button>
+          <button class="chip" data-cat="devocional">Devocionales</button>
         </div>
+        <div class="grid2" id="grid"></div>
       </section>
 
       <!-- 05 Pago -->
@@ -385,32 +471,52 @@ body{
         </div>
         <div class="row" style="background:var(--bg-surface-2);border-radius:var(--radius-card);padding:18px">
           <span class="ico a" style="width:80px;height:80px;border-radius:var(--radius-field)"><svg viewBox="0 0 24 24" fill="currentColor" style="width:40px;height:40px"><use href="#i-book"/></svg></span>
-          <div><b style="font-size:22px">Cápsula Poderosa</b><div class="muted" style="font-size:18px">Formato digital</div></div>
+          <div><b style="font-size:22px" id="payNombre"></b><div class="muted" style="font-size:18px" id="payFormato"></div></div>
         </div>
         <div class="h2 t" style="font-size:24px;margin-top:8px">Pagar con tarjeta</div>
-        <div class="field"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2H3zm0 4h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm3 4h5v2H6z"/></svg>Número de tarjeta</div>
-        <div class="row"><div class="field half">MM / AA</div><div class="field half">CVV</div></div>
-        <div class="hr" style="margin-top:8px"></div>
-        <div class="row between" style="font-size:24px;font-weight:700"><span>Total</span><span>USD 9.90</span></div>
-        <button class="btn block" style="margin-top:16px;padding:20px">Pagar USD 9.90</button>
+        <label class="field" id="fCard"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2H3zm0 4h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm3 4h5v2H6z"/></svg><input id="inCard" inputmode="numeric" autocomplete="off" placeholder="Número de tarjeta" maxlength="19"></label>
+        <div class="row"><label class="field half" id="fExp"><input id="inExp" inputmode="numeric" autocomplete="off" placeholder="MM / AA" maxlength="7"></label><label class="field half" id="fCvv"><input id="inCvv" inputmode="numeric" autocomplete="off" placeholder="CVV" maxlength="4"></label></div>
+        <div class="ferr" id="payErr"></div>
+        <div class="hr"></div>
+        <div class="row between" style="font-size:24px;font-weight:700"><span>Total</span><span id="payTotal"></span></div>
+        <button class="btn block" id="payBtn" style="margin-top:16px;padding:20px"></button>
         <div class="row" style="justify-content:center;gap:8px;color:var(--text-secondary);font-size:17px"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10V8a5 5 0 0 1 10 0v2h1a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2zm2 0h6V8a3 3 0 0 0-6 0z"/></svg>Pago seguro con tarjeta</div>
         <div class="muted" style="text-align:center;font-size:17px">Recibirás tu compra por correo</div>
+      </section>
+
+      <!-- 05b Confirmación -->
+      <section class="view" data-screen="gracias">
+        <div class="okmark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></div>
+        <div class="h1 t center" style="font-size:30px">¡Gracias, María!</div>
+        <p class="center muted" style="font-size:18px;line-height:1.5" id="okMsg"></p>
+        <div class="row" style="background:var(--bg-surface-2);border-radius:var(--radius-card);padding:18px;margin-top:8px">
+          <span class="ico a"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-book"/></svg></span>
+          <div style="flex:1"><b style="font-size:19px" id="okNombre"></b><div class="muted" style="font-size:16px" id="okFormato"></div></div>
+          <b id="okTotal" style="font-variant-numeric:tabular-nums"></b>
+        </div>
+        <button class="btn block" id="okCompras" style="margin-top:10px">Ver mis compras</button>
+        <button class="btn block ghost" data-go="tienda">Seguir en la tienda</button>
       </section>
 
       <!-- 06 Perfil -->
       <section class="view" data-screen="perfil">
         <div class="h1 t" style="margin-top:14px">Mi perfil</div>
         <div class="label">Idioma</div>
-        <div>
-          <div class="opt"><b>Español</b><span class="radio on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></span></div>
-          <div class="opt">English<span class="radio"></span></div>
-          <div class="opt">Português<span class="radio"></span></div>
-        </div>
+        <div id="idiomas"></div>
         <div class="label" style="margin-top:10px">Notificaciones</div>
-        <div class="pref"><div><b>Devocional diario</b><small>7:00 a. m.</small></div><span class="toggle"></span></div>
-        <div class="pref"><div><b>Novedades de la tienda</b><small>Cuando haya productos</small></div><span class="toggle"></span></div>
+        <div class="pref"><div><b>Devocional diario</b><small class="pick" id="horaPick"></small></div><button class="toggle" id="tgDev" aria-label="Devocional diario" style="border:0"></button></div>
+        <div class="pref"><div><b>Novedades de la tienda</b><small>Cuando haya productos</small></div><button class="toggle" id="tgTienda" aria-label="Novedades de la tienda" style="border:0"></button></div>
         <div class="hr"></div>
-        <div class="link">Mis compras <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></div>
+        <div class="link" id="linkCompras">Mis compras <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></div>
+      </section>
+
+      <!-- 06b Mis compras -->
+      <section class="view" data-screen="compras">
+        <div class="row" style="margin-top:14px;gap:8px">
+          <button class="back" data-go="perfil" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg></button>
+          <div class="h1 t" style="font-size:32px">Mis compras</div>
+        </div>
+        <div id="comprasList"></div>
       </section>
 
       <nav class="tabbar" id="tabbar">
@@ -419,9 +525,13 @@ body{
         <button class="tab" data-tab="tienda" aria-label="Tienda"><i><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-bag"/></svg></i></button>
         <button class="tab" data-tab="perfil" aria-label="Perfil"><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm-8 9a8 8 0 0 1 16 0z"/></svg></i></button>
       </nav>
+      <div class="toast" id="toast" role="status"></div>
     </div>
   </div>
-  <button class="extbtn" data-go="push">Ver notificación push</button>
+  <div style="display:flex;gap:10px">
+    <button class="extbtn" data-go="push">Ver notificación push</button>
+    <button class="extbtn" id="resetBtn">Reiniciar demo</button>
+  </div>
 </main>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -432,6 +542,7 @@ body{
 </svg>
 
 <script>
+/* ---------- Opciones de design system ---------- */
 const OPTS = {
   a:{name:"A · Lila cálida",intent:"Cálida y envolvente: el lila es el fondo de toda la app, el negro manda en la acción.",title:"Fraunces",body:"Nunito",comp:"Componentes rellenos y en pastilla: campos sin borde, chips y botones redondos, toggles y radios negros, tab activa con óvalo lila.",
      sw:[["canvas","lilac-200"],["surface","sand-50"],["surface-2","sand-100"],["muted","lilac-100"],["brand","coral-700"],["cta","ink-900"],["accent","lilac-300"],["border","sand-200"]]},
@@ -440,9 +551,79 @@ const OPTS = {
   c:{name:"C · Editorial",intent:"Editorial y limpia: casi blanco, negro en acción y títulos, coral pastel como detalle.",title:"Playfair Display",body:"DM Sans",comp:"Componentes editoriales planos: filetes en vez de cajas, campos subrayados, filtros con subrayado, botón en mayúsculas, tab activa con barra superior.",
      sw:[["canvas","lilac-50"],["surface","white"],["surface-2","sand-50"],["muted","ink-100"],["brand","coral-700"],["cta","ink-900"],["accent","coral-100"],["border","ink-100"]]},
 };
+
+/* ---------- Mock data ---------- */
+const DEVOCIONALES = [
+  {id:1,titulo:"La Palabra que transforma todo",ref:"Hebreos 4:12",pasaje:"hebreos-4",fecha:"Hoy",etiquetas:["Fe","Palabra"],
+   extracto:"Una Palabra viva que llega a lo más íntimo de tu corazón.",
+   cuerpo:["Hay palabras que se olvidan al minuto y otras que se quedan. La Palabra de Dios es de las segundas: no pasa por encima, entra.","Hebreos la describe como viva y eficaz. Viva porque te habla hoy, en tu situación concreta. Eficaz porque no se queda en consuelo: cambia cómo miras tu día.","Hoy, antes de abrir redes, abre un versículo. Léelo dos veces. Deja que llegue a lo más íntimo y pregúntale a Dios qué quiere transformar."]},
+  {id:2,titulo:"Intimidad con Dios",ref:"Salmos 23:1",pasaje:"salmos-23",fecha:"Ayer",etiquetas:["Oración","Descanso"],
+   extracto:"Nada me faltará: la confianza que nace de conocerlo de cerca.",
+   cuerpo:["David no escribió el Salmo 23 desde un palacio, sino desde el campo, cuidando ovejas. Conocía de cerca lo que significa que alguien te guíe.","La intimidad con Dios no es un sentimiento de domingo. Es la certeza diaria de que no caminas sola.","Hoy, repite despacio: \"Jehová es mi pastor\". Y nota qué parte de tu semana necesita ese pastoreo."]},
+  {id:3,titulo:"Descanso para el alma",ref:"Mateo 11:28",pasaje:"mateo-11",fecha:"17 oct",etiquetas:["Descanso"],
+   extracto:"Venid a mí todos los que estáis trabajados y cargados.",
+   cuerpo:["Jesús no pide que primero resuelvas tu cansancio. Dice: ven así, cargada.","El descanso que ofrece no es ausencia de trabajo, sino presencia de alguien que lleva el peso contigo.","Hoy, escribe una carga que vienes arrastrando y entrégasela en oración, con nombre y apellido."]},
+  {id:4,titulo:"Confía en el proceso",ref:"Filipenses 4:6",pasaje:"filipenses-4",fecha:"16 oct",etiquetas:["Fe","Paz"],
+   extracto:"Por nada estéis afanosas; en todo presentad vuestras peticiones.",
+   cuerpo:["Pablo escribe desde la cárcel y habla de paz. No es ingenuidad: es un proceso que conoce bien.","La ansiedad grita por el resultado. La oración cambia el orden: primero gratitud, luego petición.","Hoy, cambia un \"¿y si…?\" por un \"gracias porque…\". Nota la diferencia en tu respiración."]},
+];
+const BIBLIA = {
+  "salmos-23":{label:"Salmos 23",versos:["Jehová es mi pastor; nada me faltará.","En lugares de delicados pastos me hará yacer: Junto a aguas de reposo me pastoreará.","Confortará mi alma; Guiaráme por sendas de justicia por amor de su nombre.","Aunque ande en valle de sombra de muerte, No temeré mal alguno; porque tú estarás conmigo.","Aderezas mesa delante de mí en presencia de mis angustiadores: Ungiste mi cabeza con aceite: mi copa está rebosando."]},
+  "hebreos-4":{label:"Hebreos 4",versos:["Temamos, pues, que quedando aún la promesa de entrar en su reposo, parezca alguno de vosotros haberse apartado.","Porque también á nosotros se nos ha evangelizado como á ellos.","Empero entramos en el reposo los que hemos creído.","Porque la palabra de Dios es viva y eficaz, y más penetrante que toda espada de dos filos.","Y no hay cosa criada que no sea manifiesta en su presencia."],hl:4},
+  "mateo-11":{label:"Mateo 11",versos:["Venid á mí todos los que estáis trabajados y cargados, que yo os haré descansar.","Llevad mi yugo sobre vosotros, y aprended de mí, que soy manso y humilde de corazón; y hallaréis descanso para vuestras almas.","Porque mi yugo es fácil, y ligera mi carga."],hl:1},
+  "filipenses-4":{label:"Filipenses 4",versos:["Regocijaos en el Señor siempre: otra vez digo: Que os regocijéis.","Vuestra modestia sea conocida de todos los hombres. El Señor está cerca.","Por nada estéis afanosos; sino sean notorias vuestras peticiones delante de Dios en toda oración y ruego, con hacimiento de gracias.","Y la paz de Dios, que sobrepuja todo entendimiento, guardará vuestros corazones y vuestros entendimientos en Cristo Jesús."],hl:3},
+  "juan-3":{label:"Juan 3",versos:["Porque de tal manera amó Dios al mundo, que ha dado á su Hijo unigénito, para que todo aquel que en él cree, no se pierda, mas tenga vida eterna.","Porque no envió Dios á su Hijo al mundo, para que condene al mundo, mas para que el mundo sea salvo por él."],hl:1},
+};
+const PASAJES = Object.keys(BIBLIA);
+const VERSIONES = [{id:"rv1909",label:"RV 1909",disp:true},{id:"rv1960",label:"RV 1960",disp:false},{id:"kjv",label:"KJV · English",disp:false},{id:"ara",label:"ARA · Português",disp:false}];
+const PRODUCTOS = [
+  {id:"capsula",nombre:"Cápsula Poderosa",precio:9.90,cat:"devocional",formato:"Formato digital",tile:"t1"},
+  {id:"dev30",nombre:"Devocional 30 días",precio:12.90,cat:"devocional",formato:"PDF descargable",tile:"t2"},
+  {id:"libro",nombre:"Libro impreso",precio:24.90,cat:"libro",formato:"Libro físico",tile:"t3"},
+  {id:"guia",nombre:"Guía de oración",precio:7.90,cat:"libro",formato:"PDF descargable",tile:"t4"},
+];
+const IDIOMAS = [{id:"es",label:"Español",chip:"ES"},{id:"en",label:"English",chip:"EN"},{id:"pt",label:"Português",chip:"PT"}];
+const HORAS = ["6:00 a. m.","7:00 a. m.","8:00 a. m.","9:00 p. m."];
+const USD = n => "USD " + n.toFixed(2);
+
+const initial = () => ({idioma:"es",version:"rv1909",pasaje:"salmos-23",filtro:"todo",producto:null,notifDev:true,notifTienda:true,hora:"7:00 a. m.",leidos:new Set(),verso:null,from:"inicio",
+  compras:[{nombre:"Devocional 30 días",formato:"PDF descargable",precio:12.90,fecha:"3 oct"}]});
+let state = initial();
+
+/* ---------- Helpers ---------- */
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
+const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+const ICON_BOOK = '<svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-book"/></svg>';
+const ICON_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg>';
+let toastT;
+function toast(msg){
+  const t = $("#toast"); t.textContent = msg; t.classList.add("show");
+  clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("show"), 1800);
+}
 
+/* Menú desplegable anclado a un elemento, dentro del celular */
+function openMenu(anchor, items, onPick){
+  closeMenu();
+  const screen = $("#screen");
+  const scrim = el("div", "scrim"); scrim.id = "scrim";
+  const menu = el("div", "menu"); menu.id = "menu"; menu.setAttribute("role", "menu");
+  items.forEach(it => {
+    const b = el("button", it.on ? "on" : "", `<span>${it.label}</span>${it.disabled ? "<small>Próximamente</small>" : (it.on ? ICON_CHECK.replace("<svg", '<svg width="18" height="18"') : "")}`);
+    if (it.disabled) b.disabled = true;
+    b.addEventListener("click", () => { closeMenu(); onPick(it); });
+    menu.appendChild(b);
+  });
+  const sr = screen.getBoundingClientRect(), ar = anchor.getBoundingClientRect();
+  menu.style.top = (ar.bottom - sr.top + 6) + "px";
+  const right = sr.right - ar.right;
+  if (ar.left - sr.left > sr.width / 2) menu.style.right = right + "px"; else menu.style.left = (ar.left - sr.left) + "px";
+  scrim.addEventListener("click", closeMenu);
+  screen.appendChild(scrim); screen.appendChild(menu);
+}
+function closeMenu(){ $("#menu")?.remove(); $("#scrim")?.remove(); }
+
+/* ---------- Tema ---------- */
 function setTheme(id){
   document.documentElement.dataset.theme = id;
   const o = OPTS[id];
@@ -455,16 +636,180 @@ function setTheme(id){
     `<div class="sw"><i style="background:var(--${tok})"></i>${role}<br>${tok}</div>`).join("");
   $$(".opts button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.opt === id)));
 }
+
+/* ---------- Navegación ---------- */
+const TAB_OF = {inicio:"inicio",lectura:"inicio",biblia:"biblia",tienda:"tienda",pago:"tienda",gracias:"tienda",perfil:"perfil",compras:"perfil"};
 function go(screen){
+  closeMenu();
   $$(".view").forEach(v => v.classList.toggle("is-active", v.dataset.screen === screen));
-  $$(".tab").forEach(t => t.classList.toggle("on", t.dataset.tab === screen));
+  $$(".tab").forEach(t => t.classList.toggle("on", t.dataset.tab === TAB_OF[screen]));
   $("#tabbar").style.display = screen === "push" ? "none" : "";
   $$(".view.is-active").forEach(v => v.scrollTop = 0);
 }
+
+/* ---------- Inicio ---------- */
+function renderInicio(){
+  const hoy = DEVOCIONALES[0];
+  $("#langPill").textContent = IDIOMAS.find(i => i.id === state.idioma).chip;
+  $("#cardHoy").innerHTML = `
+    <div class="eyebrow">Devocional del día</div>
+    <div class="h2 t">${hoy.titulo}</div>
+    <div style="color:var(--text-brand);font-weight:700;font-size:20px">${hoy.ref}</div>
+    <p class="muted" style="font-size:19px;line-height:1.45">${hoy.extracto}</p>
+    <button class="btn" style="margin-top:8px" id="btnLeer">${state.leidos.has(hoy.id) ? "Volver a leer" : "Leer devocional"}</button>`;
+  $("#btnLeer").addEventListener("click", () => openLectura(hoy.id, "inicio"));
+  const list = $("#listPrev"); list.innerHTML = "";
+  DEVOCIONALES.slice(1).forEach((d, i) => {
+    const row = el("button", "row", `<span class="ico ${i % 2 ? "b" : "a"}">${state.leidos.has(d.id) ? ICON_CHECK : ICON_BOOK}</span><span class="grow">${d.titulo}</span><span class="rel">${d.fecha}</span>`);
+    row.style.cssText = "background:none;border:0;padding:0;font:inherit;color:inherit;text-align:left;cursor:pointer;width:100%";
+    row.addEventListener("click", () => openLectura(d.id, "inicio"));
+    list.appendChild(row);
+  });
+}
+
+/* ---------- Lectura ---------- */
+function openLectura(id, from){
+  const d = DEVOCIONALES.find(x => x.id === id);
+  state.lectura = id; state.from = from || "inicio";
+  $("#lecFecha").textContent = d.fecha === "Hoy" ? "Devocional de hoy" : "Devocional · " + d.fecha;
+  $("#lecTitulo").textContent = d.titulo;
+  $("#lecTags").innerHTML = d.etiquetas.map(t => `<span class="tag">${t}</span>`).join("");
+  $("#lecPasaje").innerHTML = `<div><b>${d.ref}</b><br><span>Leer el pasaje en la Biblia</span></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg>`;
+  $("#lecCuerpo").innerHTML = d.cuerpo.map(p => `<p>${p}</p>`).join("");
+  renderLeido();
+  go("lectura");
+}
+function renderLeido(){
+  const b = $("#lecLeido"), done = state.leidos.has(state.lectura);
+  b.textContent = done ? "Leído ✓ · Desmarcar" : "Marcar como leído";
+  b.classList.toggle("ghost", done);
+}
+$("#lecLeido").addEventListener("click", () => {
+  const id = state.lectura;
+  if (state.leidos.has(id)) { state.leidos.delete(id); toast("Marcado como pendiente"); }
+  else { state.leidos.add(id); toast("Devocional marcado como leído"); }
+  renderLeido(); renderInicio();
+});
+$("#lecturaBack").addEventListener("click", () => go(state.from));
+$("#lecPasaje").addEventListener("click", () => {
+  const d = DEVOCIONALES.find(x => x.id === state.lectura);
+  if (!d) return;
+  state.pasaje = d.pasaje; state.verso = BIBLIA[d.pasaje].hl ?? null;
+  renderBiblia(); go("biblia");
+});
+$("#pushDev").addEventListener("click", () => openLectura(1, "inicio"));
+
+/* ---------- Biblia ---------- */
+function renderBiblia(){
+  const p = BIBLIA[state.pasaje];
+  $("#verPill").textContent = VERSIONES.find(v => v.id === state.version).label;
+  $("#pasajeLabel").textContent = p.label;
+  const hl = state.verso ?? p.hl ?? 1;
+  const box = $("#versos"); box.innerHTML = "";
+  p.versos.forEach((v, i) => {
+    const n = i + 1;
+    const e = el("p", "verse" + (n === hl ? " hl" : ""), `<b>${n}</b>${v}`);
+    e.tabIndex = 0;
+    e.addEventListener("click", () => { state.verso = n; renderBiblia(); });
+    box.appendChild(e);
+  });
+  const idx = PASAJES.indexOf(state.pasaje);
+  $("#capPrev").disabled = idx === 0; $("#capNext").disabled = idx === PASAJES.length - 1;
+}
+$("#pasajeSel").addEventListener("click", e => {
+  openMenu(e.currentTarget, PASAJES.map(k => ({id:k,label:BIBLIA[k].label,on:k === state.pasaje})), it => { state.pasaje = it.id; state.verso = null; renderBiblia(); });
+});
+$("#verPill").addEventListener("click", e => {
+  openMenu(e.currentTarget, VERSIONES.map(v => ({id:v.id,label:v.label,on:v.id === state.version,disabled:!v.disp})), it => { state.version = it.id; renderBiblia(); });
+});
+$("#capPrev").addEventListener("click", () => { state.pasaje = PASAJES[PASAJES.indexOf(state.pasaje) - 1]; state.verso = null; renderBiblia(); });
+$("#capNext").addEventListener("click", () => { state.pasaje = PASAJES[PASAJES.indexOf(state.pasaje) + 1]; state.verso = null; renderBiblia(); });
+
+/* ---------- Tienda ---------- */
+function renderTienda(){
+  $$("#chips .chip").forEach(c => c.classList.toggle("on", c.dataset.cat === state.filtro));
+  const grid = $("#grid"); grid.innerHTML = "";
+  PRODUCTOS.filter(p => state.filtro === "todo" || p.cat === state.filtro).forEach(p => {
+    const b = el("button", "prod", `<div class="tile ${p.tile}">${ICON_BOOK}</div><b>${p.nombre}</b><span class="price">${USD(p.precio)}</span>`);
+    b.addEventListener("click", () => openPago(p.id));
+    grid.appendChild(b);
+  });
+  const n = state.compras.length;
+  $("#bagCount").textContent = n; $("#bagCount").style.display = n ? "" : "none";
+}
+$$("#chips .chip").forEach(c => c.addEventListener("click", () => { state.filtro = c.dataset.cat; renderTienda(); }));
+$("#bagBtn").addEventListener("click", () => { renderCompras(); go("compras"); });
+
+/* ---------- Pago ---------- */
+function openPago(id){
+  const p = PRODUCTOS.find(x => x.id === id); state.producto = p;
+  $("#payNombre").textContent = p.nombre; $("#payFormato").textContent = p.formato;
+  $("#payTotal").textContent = USD(p.precio); $("#payBtn").textContent = "Pagar " + USD(p.precio);
+  $("#payBtn").disabled = false;
+  ["#inCard","#inExp","#inCvv"].forEach(s => $(s).value = "");
+  ["#fCard","#fExp","#fCvv"].forEach(s => $(s).classList.remove("err"));
+  $("#payErr").textContent = "";
+  go("pago");
+}
+$("#inCard").addEventListener("input", e => { e.target.value = e.target.value.replace(/\D/g, "").slice(0, 16).replace(/(\d{4})(?=\d)/g, "$1 "); });
+$("#inExp").addEventListener("input", e => { const d = e.target.value.replace(/\D/g, "").slice(0, 4); e.target.value = d.length > 2 ? d.slice(0, 2) + " / " + d.slice(2) : d; });
+$("#inCvv").addEventListener("input", e => { e.target.value = e.target.value.replace(/\D/g, "").slice(0, 4); });
+$("#payBtn").addEventListener("click", () => {
+  const card = $("#inCard").value.replace(/\s/g, ""), exp = $("#inExp").value.replace(/\D/g, ""), cvv = $("#inCvv").value;
+  const errs = [];
+  $("#fCard").classList.toggle("err", card.length !== 16); if (card.length !== 16) errs.push("Revisa el número de tarjeta (16 dígitos).");
+  const mm = +exp.slice(0, 2), okExp = exp.length === 4 && mm >= 1 && mm <= 12;
+  $("#fExp").classList.toggle("err", !okExp); if (!okExp) errs.push("La fecha debe ser MM / AA.");
+  $("#fCvv").classList.toggle("err", cvv.length < 3); if (cvv.length < 3) errs.push("El CVV tiene 3 o 4 dígitos.");
+  $("#payErr").textContent = errs[0] || "";
+  if (errs.length) return;
+  const b = $("#payBtn"); b.disabled = true; b.textContent = "Procesando…";
+  setTimeout(() => {
+    const p = state.producto;
+    state.compras.unshift({nombre:p.nombre,formato:p.formato,precio:p.precio,fecha:"Hoy"});
+    $("#okMsg").textContent = p.formato === "Libro físico" ? "Te escribiremos a maria@correo.com para coordinar la entrega." : "Te enviamos el enlace de descarga a maria@correo.com.";
+    $("#okNombre").textContent = p.nombre; $("#okFormato").textContent = p.formato; $("#okTotal").textContent = USD(p.precio);
+    renderTienda(); go("gracias");
+  }, 900);
+});
+$("#okCompras").addEventListener("click", () => { renderCompras(); go("compras"); });
+
+/* ---------- Perfil ---------- */
+function renderPerfil(){
+  const box = $("#idiomas"); box.innerHTML = "";
+  IDIOMAS.forEach(i => {
+    const on = i.id === state.idioma;
+    const row = el("div", "opt", `${on ? "<b>" + i.label + "</b>" : i.label}<span class="radio${on ? " on" : ""}">${on ? ICON_CHECK : ""}</span>`);
+    row.tabIndex = 0; row.setAttribute("role", "radio"); row.setAttribute("aria-checked", on);
+    row.addEventListener("click", () => { if (state.idioma !== i.id) { state.idioma = i.id; renderPerfil(); renderInicio(); toast("Idioma: " + i.label + " · la interfaz se traduce en la app real"); } });
+    box.appendChild(row);
+  });
+  $("#tgDev").classList.toggle("off", !state.notifDev); $("#tgDev").setAttribute("aria-pressed", state.notifDev);
+  $("#tgTienda").classList.toggle("off", !state.notifTienda); $("#tgTienda").setAttribute("aria-pressed", state.notifTienda);
+  $("#horaPick").textContent = state.notifDev ? state.hora + " · cambiar" : "Desactivado";
+  $("#horaPick").classList.toggle("pick", state.notifDev);
+}
+$("#tgDev").addEventListener("click", () => { state.notifDev = !state.notifDev; renderPerfil(); toast(state.notifDev ? "Devocional diario activado" : "Devocional diario desactivado"); });
+$("#tgTienda").addEventListener("click", () => { state.notifTienda = !state.notifTienda; renderPerfil(); toast(state.notifTienda ? "Avisos de tienda activados" : "Avisos de tienda desactivados"); });
+$("#horaPick").addEventListener("click", e => {
+  if (!state.notifDev) return;
+  openMenu(e.currentTarget, HORAS.map(h => ({id:h,label:h,on:h === state.hora})), it => { state.hora = it.id; renderPerfil(); toast("Te avisaremos a las " + it.id); });
+});
+$("#linkCompras").addEventListener("click", () => { renderCompras(); go("compras"); });
+function renderCompras(){
+  const box = $("#comprasList"); box.innerHTML = "";
+  if (!state.compras.length) { box.appendChild(el("div", "empty", "Aún no tienes compras.<br>Lo que compres en la tienda aparecerá aquí.")); return; }
+  state.compras.forEach(c => box.appendChild(el("div", "buy", `<div><b>${c.nombre}</b><small>${c.formato} · ${c.fecha}</small></div><span class="amt">${USD(c.precio)}</span>`)));
+}
+
+/* ---------- Wiring general ---------- */
 $$(".opts button").forEach(b => b.addEventListener("click", () => setTheme(b.dataset.opt)));
 $$(".tab").forEach(t => t.addEventListener("click", () => go(t.dataset.tab)));
-$$("[data-go]").forEach(el => el.addEventListener("click", () => go(el.dataset.go)));
+$$("[data-go]").forEach(e => e.addEventListener("click", () => go(e.dataset.go)));
+$("#resetBtn").addEventListener("click", () => { state = initial(); renderAll(); go("inicio"); toast("Demo reiniciada"); });
+function renderAll(){ renderInicio(); renderBiblia(); renderTienda(); renderPerfil(); renderCompras(); }
 setTheme("a");
+renderAll();
 </script>
 </body>
 </html>

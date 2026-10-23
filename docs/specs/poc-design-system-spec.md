@@ -75,6 +75,24 @@ Ratios calculados sobre los tokens (WCAG, texto normal 4.5:1, texto grande 3:1):
 - Blanco sobre `coral-500` da 3.7: válido solo para el CTA de B (18 px bold). Los chips de B llevan `ink-900` (4.9).
 - En A la card del devocional usa `lilac-100` en vez de `lilac-300` para que el eyebrow coral alcance 4.5.
 
+## Interacciones y datos de prueba
+
+Decisión del 23 de octubre de 2026: el prototipo simula los flujos con datos mock en el propio `index.html` (constantes `DEVOCIONALES`, `BIBLIA`, `VERSIONES`, `PRODUCTOS`, `IDIOMAS`, `HORAS`). Sin backend ni persistencia; el botón "Reiniciar demo" vuelve al estado inicial.
+
+| Pantalla | Interacción |
+|---|---|
+| Inicio | "Leer devocional" y cada ítem de Anteriores abren la lectura. El chip de idioma lleva a Perfil. Los leídos muestran check. |
+| Lectura | Etiquetas, cuerpo en 3 párrafos, enlace al pasaje que abre la Biblia en ese capítulo con el versículo resaltado, "Marcar como leído" con toast. |
+| Biblia | Desplegable de pasajes (5 capítulos), desplegable de versión (RV 1909 activa; RV 1960, KJV y ARA marcadas "Próximamente"), tocar un versículo lo resalta, botones Anterior/Siguiente. |
+| Tienda | Chips filtran por categoría. Ícono de bolsa con contador y acceso a Mis compras. Tocar un producto abre Pago con sus datos. |
+| Pago | Inputs reales con formato automático (tarjeta en bloques de 4, MM / AA, CVV). Validación con mensaje y campo en error. "Procesando…" y pantalla de confirmación. |
+| Confirmación | Mensaje según formato (descarga o entrega física), resumen, botones a Mis compras o Tienda. |
+| Perfil | Radios de idioma seleccionables (con aviso de que la traducción es de la app real), toggles con animación, hora del devocional en desplegable, enlace a Mis compras. |
+| Mis compras | Lista con compras previas y nuevas; estado vacío si no hay. |
+| Push | La primera tarjeta abre la lectura de hoy; la segunda, la Tienda. |
+
+Los desplegables se renderizan dentro del celular, anclados al control, y adoptan el estilo de cada opción (A relleno, B contorno, C filetes).
+
 ## Pantallas
 
 Contenido copiado tal cual de las 6 referencias: Inicio, Biblia, Notificaciones, Tienda, Pago, Perfil.
